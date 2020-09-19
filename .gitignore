@@ -1,0 +1,10 @@
+/.vs
+/packages
+/SalesReport.API/bin
+/SalesReport.API/obj
+/SalesReport.API/Scripts/ng
+/SalesReport.API/App_Data/SalesReport.API.mdf
+/SalesReport.API/App_Data/SalesReport.API_log.ldf
+/TestResults
+/SalesReport.API.Tests/bin
+/SalesReport.API.Tests/obj
