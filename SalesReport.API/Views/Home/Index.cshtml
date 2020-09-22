@@ -1,9 +1,14 @@
 ﻿@section Scripts{
-	<script type="text/javascript" src="~/Scripts/ng/runtime.js"></script>
-	<script type="text/javascript" src="~/Scripts/ng/polyfills.js"></script>
-	<script type="text/javascript" src="~/Scripts/ng/styles.js"></script>
-	<script type="text/javascript" src="~/Scripts/ng/vendor.js"></script>
-	<script type="text/javascript" src="~/Scripts/ng/main.js"></script>
+	<script src="~/Scripts/ng/runtime-es2015.js" type="module">
+	</script><script src="~/Scripts/ng/runtime-es5.js" nomodule defer></script>
+	<script src="~/Scripts/ng/polyfills-es5.js" nomodule defer></script>
+	<script src="~/Scripts/ng/polyfills-es2015.js" type="module"></script>
+	<script src="~/Scripts/ng/styles-es2015.js" type="module"></script>
+	<script src="~/Scripts/ng/styles-es5.js" nomodule defer></script>
+	<script src="~/Scripts/ng/vendor-es2015.js" type="module"></script>
+	<script src="~/Scripts/ng/vendor-es5.js" nomodule defer></script>
+	<script src="~/Scripts/ng/main-es2015.js" type="module"></script>
+	<script src="~/Scripts/ng/main-es5.js" nomodule defer></script>
 }
 
 <app-root></app-root>
