@@ -1,47 +1,54 @@
 import { Component } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { FileUploader } from 'ng2-file-upload';
 
+const URL = '/api/salesRecords';
 
 @Component({
 	selector: 'app-root',
-	template: `<div style="text-align:center" class="content">
-		<h1>
-			Welcome to {{title}}!
-		</h1>
-	</div>
-	<div class="file-upload">
-		<label for="file-input">
-			Select files
-		</label>
-
-		<input id="file-input" #MyFile type="file" (change)="handleFileInput($event.target.files)" />
-		<button type="button" class="btn-large btn-submit" [disabled]="fileToUpload==null" (click)="onSubmit()">
-			<i class="material-icons">save</i>
-		</button>
-	</div>
-	`,
-	styles: []
+	templateUrl: 'app.component.html',
+		styles: [`
+	    .my-drop-zone { border: dotted 3px lightgray; }
+	    .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+	    .another-file-over-class { border: dotted 3px green; }
+	`]
 })
 export class AppComponent {
-	constructor(private http: HttpClient) {}
 
-	title = 'SalesReport-SPA';
-	fileToUpload: File = null;
+	uploader: FileUploader;
+	hasBaseDropZoneOver: boolean;
+	hasAnotherDropZoneOver: boolean;
+	response: string;
 
-	handleFileInput(files: FileList) {
-		this.fileToUpload = files.item(0);
+	constructor (){
+		this.uploader = new FileUploader({
+			url: URL,
+			disableMultipart: true, // 'DisableMultipart' must be 'true' for formatDataFunction to be called.
+			formatDataFunctionIsAsync: true,
+			formatDataFunction: async (item) => {
+				return new Promise( (resolve, reject) => {
+					resolve({
+						name: item._file.name,
+						length: item._file.size,
+						contentType: item._file.type,
+						date: new Date()
+					});
+				});
+			}
+		});
+
+		this.hasBaseDropZoneOver = false;
+		this.hasAnotherDropZoneOver = false;
+
+		this.response = '';
+
+		this.uploader.response.subscribe( res => this.response = res );
 	}
 
-	onSubmit() {
-		const endpoint = '/api/salesrecords';
-		const formData: FormData = new FormData();
-		formData.append('fileKey', this.fileToUpload, this.fileToUpload.name);
-		this.http
-			.post(endpoint, formData) // , { headers: yourHeadersConfig })
-			.subscribe(data => {
-			// do something, if upload success
-		}, error => {
-			console.log(error);
-		});
+	public fileOverBase(e:any):void {
+		this.hasBaseDropZoneOver = e;
+	}
+
+	public fileOverAnother(e:any):void {
+		this.hasAnotherDropZoneOver = e;
 	}
 }

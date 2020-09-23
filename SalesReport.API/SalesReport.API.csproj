@@ -346,6 +346,7 @@
     <Content Include="SPA\src\styles.sass" />
     <Content Include="SPA\tsconfig.app.json" />
     <Content Include="SPA\tsconfig.json" />
+    <Content Include="SPA\src\app\app.component.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
